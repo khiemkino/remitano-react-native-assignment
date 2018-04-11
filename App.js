@@ -17,54 +17,52 @@ export default class App extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-        isWebview:false
+      isWebview: true
     }
-    this.uploadFile = this.uploadFile.bind(this)
+    this.chooseWebView = this.chooseWebView.bind(this)
   }
 
-  uploadFile() {
+  chooseWebView() {
+    this.setState({ isWebview: !this.state.isWebview })
   }
 
   render() {
+    const { isWebview } = this.state
     return (
       <View style={styles.container}>
-        {/* <TouchableOpacity>
-        </TouchableOpacity>
-        <WebView
-          source={{ uri: 'http://192.168.206.103:3000/' }}
-          style={{ marginTop: 20 }}
-        /> */}
-
-        <Image source={require('./logo.jpg')} style={{ marginBottom: height(5), height: height(15), width: width(40), resizeMode: 'contain' }} />
-        <View style={{
-          borderTopWidth:height(1),
-          borderTopColor:'#CECECE',
-          borderBottomWidth: height(1),
-          marginBottom: height(5),
-          borderBottomColor: '#CECECE',
-          height: height(12),
-          backgroundColor: '#292929', width: '100%',
-          justifyContent: 'center',
-          paddingLeft:width(5)
-        }}>
-          <Text style={{ fontSize: width(4), color: 'white' }}>
-            {'Remitano Mobile Reactive Assignment'}
-          </Text>
-        </View>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#8543A2', width: width(50), height: height(6), borderRadius: width(2)
-          }} onPress={this.uploadFile} >
-          <Text style={{ fontFamily: 'Oswald-Regular', fontSize: width(4), color: 'white' }}>
-            {'Upload File'}
+        <TouchableOpacity onPress={this.chooseWebView} style={styles.btnSwitch}>
+          <Text style={styles.fontOswald}>
+            {'Switch Mobile/WebView'}
           </Text>
         </TouchableOpacity>
-        <Text style={styles.welcome}>
-          Choose your file to upload
-        </Text>
+        {
+          isWebview ?
+            <View style={styles.container}>
+              <WebView
+                scrollEnabled={false}
+                source={{ uri: 'https://remitanoserver.herokuapp.com/' }}
+                style={styles.webViewContainer}
+              />
+            </View>
+            : <View style={styles.container}>
+              <Image source={require('./logo.jpg')} style={styles.imgLogo} />
+              <View style={styles.titleContainer}>
+                <Text style={styles.fontDefault}>
+                  {'Remitano Mobile Reactive Assignment'}
+                </Text>
+              </View>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.btnUpload}>
+                <Text style={styles.fontOswald}>
+                  {'Upload File'}
+                </Text>
+              </TouchableOpacity>
+              <Text style={styles.fontUpload}>
+                Choose your file to upload
+              </Text>
+            </View>
+        }
       </View>
     );
   }
@@ -73,18 +71,61 @@ export default class App extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#ECECEC',
+    alignItems: 'center',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  webViewContainer: {
+    height: height(90),
+    width: width(100)
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  imgLogo: {
+    marginVertical:height(5),
+    height: height(25),
+    width: width(70),
+    resizeMode: 'contain'
   },
+  titleContainer: {
+    borderTopWidth: height(1),
+    borderTopColor: '#CECECE',
+    borderBottomWidth: height(1),
+    marginBottom: height(5),
+    borderBottomColor: '#CECECE',
+    height: height(12),
+    backgroundColor: '#292929',
+    width: width(100),
+    justifyContent: 'center',
+    paddingLeft: width(5)
+  },
+  fontUpload: {
+    marginTop: height(2),
+    fontSize: width(4),
+    color: '#252525'
+  },
+  fontDefault: {
+    fontSize: width(4),
+    color: 'white'
+  },
+  fontOswald: {
+    fontFamily: 'Oswald-Regular',
+    fontSize: width(4),
+    color: 'white'
+  },
+  btnUpload: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#8543A2',
+    width: width(50),
+    height: height(6),
+    borderRadius: width(2)
+  },
+  btnSwitch: {
+    marginTop: height(5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#8543A2',
+    width: width(50),
+    height: height(6),
+    borderRadius: width(2)
+  }
+
 });
