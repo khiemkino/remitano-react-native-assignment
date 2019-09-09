@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
 import {
-  StyleSheet, View, WebView, Linking, TouchableOpacity, Modal, Text,
+  StyleSheet, View, Linking, TouchableOpacity, Modal, Text,
   Button, TouchableHighlight, CameraRoll, Image, Dimensions, FlatList
 } from 'react-native'
+import { WebView } from 'react-native-webview';
 
 const width = num => Dimensions.get('window').width * (num / 100)
 const height = num => Dimensions.get('window').height * (num / 100)
@@ -208,7 +209,6 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   fontOswald: {
-    fontFamily: 'Oswald-Regular',
     fontSize: width(4),
     color: 'white'
   },
