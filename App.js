@@ -51,6 +51,7 @@ export default class WebViewWrapper extends PureComponent {
   selectPhoto = () => {
     CameraRoll.getPhotos({
       first: 20,
+      groupTypes = 'All',
       assetType: 'Photos'
     })
       .then(r => this.setState({ arrPhoto: r.edges }))
